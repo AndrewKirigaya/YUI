@@ -1,0 +1,137 @@
+class  Matrix  {
+    construtor ( linhas ,  cols )  {
+        isso . linhas  =  linhas ;
+        isso . cols  =  cols ;
+
+        isso . dados  =  [ ] ;
+
+        para  ( deixe  i  =  0 ;  i  <  linhas ;  i ++ )  {
+            deixe  arr  =  [ ]
+            para  ( deixe  j  =  0 ;  j  <  cols ;  j ++ )  {
+                arr . empurre ( 0 )
+            }
+            isso . dados . push ( arr ) ;
+        }
+    }
+
+    // Funções Diversas
+
+    static  arrayToMatrix ( arr )  {
+        deixe  matriz  =  nova  Matriz ( comprimento de arr . , 1 ) ; 
+        matriz . mapa ( ( elm ,  i ,  j )  =>  {
+            retorno  arr [ i ] ;
+        } )
+         matriz de retorno ;
+    }
+
+    static  MatrixToArray ( obj )  {
+        deixe  arr  =  [ ]
+        obj . mapa ( ( elm ,  i ,  j )  =>  {
+            arr . empurrar ( olmo ) ;
+        } )
+        return  arr ;
+    }
+
+
+    print ( )  {
+        console . tabela ( este . dados ) ;
+    }
+
+    randomize ( )  {
+        isso . mapa ( ( elm ,  i ,  j )  =>  {
+            return  Math . aleatório ( )  *  2  -  1 ;
+        } ) ;
+    }
+
+     mapa estático ( A ,  func )  {
+        deixe  matriz  =  novas  Matrix ( A . linhas ,  A . cols ) ;
+
+        matriz . Dados  =  Uma . dados . mapa ( ( arr ,  i )  =>  {
+            retorno  arr . map ( ( num ,  j )  =>  {
+                return  func ( num ,  i ,  j ) ;
+            } )
+        } )
+
+         matriz de retorno ;
+    }
+
+    map ( func )  {
+
+        isso . dados  =  isso . dados . mapa ( ( arr ,  i )  =>  {
+            retorno  arr . map ( ( num ,  j )  =>  {
+                return  func ( num ,  i ,  j ) ;
+            } )
+        } )
+
+        devolva  isso ;
+    }
+
+     transposição estática ( A ) {
+        var  matriz  =  novos  Matrix ( A . cols ,  A . fileiras ) ;
+        matriz . map ( ( num , i , j )  =>  {
+            retornar  A . dados [ j ] [ i ] ;
+        } ) ;
+         matriz de retorno ;
+    }
+
+    // Operações Estáticas Matriz x Escalar 
+    
+     escalar_multiply estático ( A ,  escalar )  {
+        var  matriz  =  novos  Matrix ( A . fileiras ,  A . cols ) ;
+
+        matriz . map ( ( num ,  i ,  j )  =>  {
+            retornar  A . dados [ i ] [ j ]  *  escalar ;
+        } ) ;
+
+         matriz de retorno ;
+    }
+    
+    // Operações Estáticas Matriz x Matriz
+
+     hadamard estático ( A ,  B )  {
+        var  matriz  =  novos  Matrix ( A . fileiras ,  A . cols ) ;
+
+        matriz . map ( ( num ,  i ,  j )  =>  {
+            retornar  A . dados [ i ] [ j ]  *  B . dados [ i ] [ j ]
+        } ) ;
+
+         matriz de retorno ;
+    }
+
+     adição estática ( A ,  B )  {
+        var  matriz  =  novos  Matrix ( A . fileiras ,  A . cols ) ;
+
+        matriz . map ( ( num ,  i ,  j )  =>  {
+            retornar  A . dados [ i ] [ j ]  +  B . dados [ i ] [ j ]
+        } ) ;
+
+         matriz de retorno ;
+    }
+
+     subtrair estático ( A ,  B )  {
+        var  matriz  =  novos  Matrix ( A . fileiras ,  A . cols ) ;
+
+        matriz . map ( ( num ,  i ,  j )  =>  {
+            retornar  A . dados [ i ] [ j ]  -  B . dados [ i ] [ j ]
+        } ) ;
+
+         matriz de retorno ;
+    }
+
+     multiplicação estática ( A ,  B )  {
+        var  matriz  =  novos  Matrix ( A . fileiras ,  B . cols ) ;
+
+        matriz . map ( ( num ,  i ,  j )  =>  {
+            deixe  soma  =  0
+            para  ( seja  k  =  0 ;  k  <  A . cols ;  k ++ )  {
+                deixe  elm1  =  A . dados [ i ] [ k ] ;
+                deixar  elm2  =  B . dados [ k ] [ j ] ;
+                soma  + =  elm1  *  elm2 ;
+            }
+            
+             soma de retorno ;
+        } )
+
+         matriz de retorno ;
+    }
+}
