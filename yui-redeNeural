@@ -1,0 +1,93 @@
+função  sigmóide ( x )  {
+    return  1  /  ( 1  +  Math . exp ( - x ) ) ;
+}
+
+function  dsigmoid ( x ) {
+    retornar  x  *  ( 1 - x ) ; 
+}
+
+classe  RedeNeural  {
+    construtor ( i_nodes ,  h_nodes ,  o_nodes )  {
+        isso . i_nodes  =  i_nodes ;
+        isso . h_nodes  =  h_nodes ;
+        isso . o_nodes  =  o_nodes ;
+
+        isso . bias_ih  =  nova  Matriz ( this . h_nodes ,  1 ) ;
+        isso . bias_ih . randomize ( ) ;
+        isso . bias_ho  =  nova  Matriz ( this . o_nodes ,  1 ) ;
+        isso . bias_ho . randomize ( ) ;
+
+        isso . weigths_ih  =  new  Matrix ( this . h_nodes ,  this . i_nodes ) ;
+        isso . weigths_ih . randomize ( )
+
+        isso . weigths_ho  =  new  Matrix ( this . o_nodes ,  this . h_nodes )
+        isso . weigths_ho . randomize ( )
+
+        isso . learning_rate  =  0,1 ;
+    }
+
+    treinar ( chegar , alvo )  {
+        // INPUT -> HIDDEN
+        deixe a  entrada  =  Matrix . arrayToMatrix ( arr ) ;
+        deixe  oculto  =  Matrix . multiplique ( this . weigths_ih ,  input ) ;
+        oculto  =  Matrix . adicionar ( oculto ,  isso . bias_ih ) ;
+
+        escondido . mapa ( sigmóide )
+
+        // HIDDEN -> OUTPUT
+        // d (sigmóide) = Saída * (1- Saída)
+        deixe  saída  =  Matrix . multiplique ( this . weigths_ho ,  oculto ) ;
+        output  =  Matrix . add ( output ,  this . bias_ho ) ;
+        saída . mapa ( sigmóide ) ;
+
+        // BACKPROPAGATION
+
+        // SAÍDA -> OCULTO
+        deixe  esperado  =  Matrix . arrayToMatrix ( destino ) ;
+        deixe  output_error  =  Matrix . subtrair ( esperado , produção ) ;
+        deixe  d_output  =  Matrix . mapa ( saída , dsigmóide ) ;
+        deixe  hidden_T  =  Matrix . transpor ( oculto ) ;
+
+        deixe  gradiente  =  Matrix . Hadamard ( d_output , output_error ) ;
+        gradiente  =  matriz . escalar_multiply ( gradiente , this . learning_rate ) ;
+        
+        // Ajustar Bias O-> H
+        isso . bias_ho  =  Matriz . adicionar ( this . bias_ho ,  gradiente ) ;
+        // Ajustar Pesos O-> H
+        deixe  weigths_ho_deltas  =  Matrix . multiplicar ( gradiente , oculto_T ) ;
+        isso . weigths_ho  =  Matriz . add ( this . weigths_ho , weigths_ho_deltas ) ;
+
+        // HIDDEN -> INPUT
+        deixe  weigths_ho_T  =  Matrix . transpor ( this . weigths_ho ) ;
+        deixe  hidden_error  =  Matrix . multiplicar ( pesos_ho_T , output_error ) ;
+        let  d_hidden  =  Matrix . mapa ( oculto , dsigmóide ) ;
+        deixe  input_T  =  Matrix . transpor ( entrada ) ;
+
+        deixe  gradiente_H  =  Matriz . Hadamard ( d_hidden , hidden_error ) ;
+        gradiente_H  =  Matriz . escalar_multiply ( gradiente_H ,  this . learning_rate ) ;
+
+        // Ajustar Bias O-> H
+        isso . bias_ih  =  Matriz . adicionar ( isto . bias_ih ,  gradiente_H ) ;
+        // Ajustar Pesos H-> I
+        deixe  weigths_ih_deltas  =  Matrix . multiplicar ( gradiente_H ,  entrada_T ) ;
+        isso . weigths_ih  =  Matriz . add ( this . weigths_ih ,  weigths_ih_deltas ) ;
+    }
+
+    predizer ( arr ) {
+        // INPUT -> HIDDEN
+        deixe a  entrada  =  Matrix . arrayToMatrix ( arr ) ;
+
+        deixe  oculto  =  Matrix . multiplique ( this . weigths_ih ,  input ) ;
+        oculto  =  Matrix . adicionar ( oculto ,  isso . bias_ih ) ;
+
+        escondido . mapa ( sigmóide )
+
+        // HIDDEN -> OUTPUT
+        deixe  saída  =  Matrix . multiplique ( this . weigths_ho ,  oculto ) ;
+        output  =  Matrix . add ( output ,  this . bias_ho ) ;
+        saída . mapa ( sigmóide ) ;
+        output  =  Matrix . MatrixToArray ( saída ) ;
+
+         saída de retorno ;
+    }
+}
