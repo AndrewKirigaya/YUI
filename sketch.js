@@ -1,36 +1,35 @@
-var  train  =  true ;
+var train = true;
 
- configuração da função ( )  {
-    createCanvas ( 500 ,  500 ) ;
-    fundo ( 0 ) ;
+function setup() {
+    createCanvas(500, 500);
+    background(0);
 
-    nn  =  novo  RedeNeural ( 2 ,  3 ,  1 ) ;
+    nn = new RedeNeural(2, 3, 1);
 
-    // Problema XOR
-    dataset  =  {
-        entradas :
-            [ [ 1 ,  1 ] ,
-            [ 1 ,  0 ] ,
-            [ 0 ,  1 ] ,
-            [ 0 ,  0 ] ] ,
-        saídas :
-            [ [ 0 ] ,
-            [ 1 ] ,
-            [ 1 ] ,
-            [ 0 ] ]
+    // XOR Problem
+    dataset = {
+        inputs:
+            [[1, 1],
+            [1, 0],
+            [0, 1],
+            [0, 0]],
+        outputs:
+            [[0],
+            [1],
+            [1],
+            [0]]
     }
 }
 
-function  draw ( )  {
-    if  ( treinar )  {
-        para  ( var  i  =  0 ;  i  <  10000 ;  i ++ )  {
-             índice  var =  chão ( aleatório ( 4 ) ) ;
-            nn . treinar ( conjunto de dados . entradas [ índice ] ,  conjunto de dados . saídas [ índice ] ) ;
+function draw() {
+    if (train) {
+        for (var i = 0; i < 10000; i++) {
+            var index = floor(random(4));
+            nn.train(dataset.inputs[index], dataset.outputs[index]);
         }
-        if  ( nn . prever ( [ 0 ,  0 ] ) [ 0 ]  <  0,04  &&  nn . prever ( [ 1 ,  0 ] ) [ 0 ]  >  0,98 )  {
-            trem  =  falso ;
-            console . log ( "terminou" ) ;
+        if (nn.predict([0, 0])[0] < 0.04 && nn.predict([1, 0])[0] > 0.98) {
+            train = false;
+            console.log("terminou");
         }
     }
 }
-© 2021 GitHub, Inc.
